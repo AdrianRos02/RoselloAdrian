@@ -11,12 +11,12 @@ public class RPN {
 		this.commando = commando;
 	}
 	
-	public void NuevoNodo(double nuevo_dato) {
+	public void MeterPila(double nuevo_dato) {
 		NodoPila nuevo_nodo = new NodoPila(nuevo_dato, arriba);
 		arriba = nuevo_nodo;	
 		
 	}
-	public double DatosPila( ) {
+	public double SacarPila( ) {
 		double dato_arriba = arriba.dato;
 		arriba = arriba.abajo;
 		return dato_arriba;
@@ -27,8 +27,8 @@ public class RPN {
 		double a, b;
 		int j;
 		
-		b = DatosPila( );
-		a = DatosPila( );
+		b = SacarPila( );
+		a = SacarPila( );
 		
 		for(int i = 0; i < commando.length( ); i++) {
 			
@@ -43,28 +43,29 @@ public class RPN {
 							charAt(i));
 				}
 				// convertir a double y añadir a la pila
+				
 				numero = Double.parseDouble(temp);
-				NuevoNodo(numero);
+				MeterPila(numero);
 				
 				//Dejamos solo las operaciones y las variables fuera
 			} else if(commando.charAt(i) == '+') {
-				NuevoNodo(a + b);
+				MeterPila(a + b);
 			} else if(commando.charAt(i) == '-') {
-				NuevoNodo(a - b);
+				MeterPila(a - b);
 			} else if(commando.charAt(i) == '*') {
-				NuevoNodo(a * b);
+				MeterPila(a * b);
 			} else if(commando.charAt(i) == '/') {
-				NuevoNodo(a / b);
+				MeterPila(a / b);
 			}
 			else if(commando.charAt(i) == '^') {
-				NuevoNodo(Math.pow(a, b));}
+				MeterPila(Math.pow(a, b));}
 			else if(commando.charAt(i) == '%') {
-				NuevoNodo(a%b);
+				MeterPila(a%b);
 			} else if(commando.charAt(i) != ' ') {
 				throw new IllegalArgumentException( );
 			}
 		}
-		double val = DatosPila( );
+		double val = SacarPila( );
 		if(arriba != null) {
 			throw new IllegalArgumentException( );
 		}
