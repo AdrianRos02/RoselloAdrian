@@ -5,37 +5,37 @@ public class RPN {
 	private String commando;
 	private NodoPila arriba;
 	
-	
-	
-	public void NuevoNodo(double nuevo_dato) {
-		NodoPila nuevo_nodo = new NodoPila(nuevo_dato, arriba);
-		arriba = nuevo_nodo;
-		
-		
-		
-	}
-	public double DatosPila( ) {
-		double dato_arriba = arriba.dato;
-		arriba = arriba.abajo;
-		return dato_arriba;
-	}
+	//COnstructor
 	public RPN(String commando) {
 		arriba = null;
 		this.commando = commando;
 	}
+	
+	public void MeterPila(double nuevo_dato) {
+		NodoPila nuevo_nodo = new NodoPila(nuevo_dato, arriba);
+		arriba = nuevo_nodo;	
+		
+	}
+	public double NodoPila( ) {
+		double dato_arriba = arriba.dato;
+		arriba = arriba.abajo;
+		return dato_arriba;
+	}
+	
+	
 	public double resultado( ) {
 		//variables generales
 		double a, b;
 		int j;
 		
-		b = DatosPila( );
-		a = DatosPila( );
+	
 		
 		for(int i = 0; i < commando.length( ); i++) {
 			
 			// si es un digito
 			if(Character.isDigit(commando.charAt(i))) {
 				double numero;
+				
 				// obtener un string a partir del numero
 				String temp = "";
 				for(j = 0; (j < 100) && (Character.isDigit(
@@ -44,32 +44,72 @@ public class RPN {
 							charAt(i));
 				}
 				// convertir a double y añadir a la pila
+				
 				numero = Double.parseDouble(temp);
-				NuevoNodo(numero);
+				MeterPila(numero);
+				
 				
 				//Dejamos solo las operaciones y las variables fuera
 			} else if(commando.charAt(i) == '+') {
-				NuevoNodo(a + b);
+				suma();
 			} else if(commando.charAt(i) == '-') {
-				NuevoNodo(a - b);
+				resta();
 			} else if(commando.charAt(i) == '*') {
-				NuevoNodo(a * b);
+				multiplicar();
 			} else if(commando.charAt(i) == '/') {
-				NuevoNodo(a / b);
+				dividir();
 			}
 			else if(commando.charAt(i) == '^') {
-				NuevoNodo(Math.pow(a, b));}
+				elevado();
+				}
 			else if(commando.charAt(i) == '%') {
-				NuevoNodo(a%b);
+				percentage();
+			
 			} else if(commando.charAt(i) != ' ') {
 				throw new IllegalArgumentException( );
 			}
 		}
-		double val = DatosPila( );
+		double val = NodoPila( );
 		if(arriba != null) {
 			throw new IllegalArgumentException( );
 		}
 		return val;
+	}
+	public void suma() {
+		double a, b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(a + b);
+	}
+	public void resta() {
+		double a, b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(a - b);
+	}
+	public void multiplicar() {
+		double a, b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(a * b);
+	}
+	public void dividir() {
+		double a, b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(a / b);
+	}
+	public void elevado() {
+		double a,b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(Math.pow(a, b));
+	}
+	public void percentage() {
+		double a, b;
+		b = NodoPila( );
+		a = NodoPila( );
+		MeterPila(a%b);
 	}
 
 }
