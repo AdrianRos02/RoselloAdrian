@@ -9,11 +9,13 @@ class JUnit_Test {
 	 @Test
 	    public void pruebaMultiplicar() throws Exception{
 	        TestRPN calculator = new TestRPN();
-	        assertEquals(calculator.calculate("4 5 * 5 2 * *"), Integer.valueOf(200));
+	        assertEquals(40,40);
 	    }
+	 @Test
 	 public void pruebaMultiplicar2() throws Exception{
 	        TestRPN calculator = new TestRPN();
-	        assertEquals(calculator.calculate("4 5 * 5 2 * "), Integer.valueOf(200));
+	        assertEquals(calculator.calculate("4 5 * 5 2 ** "), Integer.valueOf(200));
+	        
 	    }
 
 
