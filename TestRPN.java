@@ -20,4 +20,11 @@ public class TestRPN{
 			}
 		}
 	}
+
+	public Integer calculate(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 }    
